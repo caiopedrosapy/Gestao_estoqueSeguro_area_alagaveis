@@ -1,0 +1,1 @@
+# Gestao_estoqueSeguro_area_alagaveis
