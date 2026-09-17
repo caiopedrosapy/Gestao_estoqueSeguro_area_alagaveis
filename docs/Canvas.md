@@ -33,6 +33,8 @@ Quando as vendas não são registradas, decisões de compra podem depender da me
 
 Em duas frases, sem jargão técnico:
 
+O Estoque Seguro permite registrar produtos, entradas e saídas, manda alertas preventivos sobre o tempo, diminuindo o desperdício e alertando sobre suspeitas em áreas alagáveis.
+
 >
 
 ## 4. Funcionalidades do MVP (3 a 5)
