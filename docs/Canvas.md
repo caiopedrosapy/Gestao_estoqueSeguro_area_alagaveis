@@ -23,14 +23,11 @@ Quando as vendas não são registradas, decisões de compra podem depender da me
 -  https://g1.globo.com/pe/caruaru-regiao/noticia/2020/06/19/enchentes-que-atingiram-palmares-completam-10-anos-com-uma-barragem-entregue-cinco-foram-prometidas-em-2010.ghtml
 
 
-
 ## 2. Quem é afetado
-
 | Quem | Quantas pessoas | Como é afetado hoje |
-
-|Proprietários de pequenos comércios | 1-5 por estabelecimento |Dificuldade para planejar compras e controlar perdas|
-
-|Funcionários responsáveis pelo estoque | 2-3 | Controle manual e dificuldade para identificar reposições |
+| :--- | :--- | :--- |
+| **Proprietários de pequenos comércios (caso a ideia seja aprovada pela ACP, para o comércio de Palmares)** | em torno de 70 estabelecimento (pensando alto, pois no grupo da ACP tem em torno de 70). | Dificuldade para planejar compras e controlar perdas /gerenciamento de gastos em períodos chuvosos.  |
+| **Funcionários responsáveis pelo estoque** | 2-3 p/ estabelecimento | Controle manual e dificuldade para identificar reposições |
 
 ## 3. Solução proposta
 
