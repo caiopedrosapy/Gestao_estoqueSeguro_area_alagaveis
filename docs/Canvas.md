@@ -15,14 +15,19 @@
 
 **Evidências de que o problema existe** (dados, falas, observação):
 
--
--
+- Em pequenos comércios de áreas sujeitas a alagamento em Palmares, o proprietário precisa decidir o volume de compras e quais produtos proteger antes de períodos de chuva. No entanto, o histórico de vendas e estoque não é registrado de forma organizada, fazendo com que as decisões dependam apenas da memória e experiência do gestor.Dados: A ausência crônica desse controle administrativo acarreta prejuízos financeiros diretos para o comércio local, gerando tanto a falta crônica de produtos essenciais para as vendas quanto o excesso de mercadorias paradas em estoque.
+-  A gravidade do problema é confirmada pelo histórico de enchentes no município, como o desastre de junho de 2010 relatado pelo portal G1. O transbordamento do Rio Una destruiu lojas do comércio e comprometeu severamente a economia local, comprovando o risco extremo a que esses comerciantes estão expostos sem ferramentas de planejamento.
+  O projeto foi desenvolvido a partir de uma necessidade observada em pequenos comércios de Palmares.
+Quando as vendas não são registradas, decisões de compra podem depender da memória e experiência do proprietário
+-  https://g1.globo.com/pe/caruaru-regiao/noticia/2020/06/19/enchentes-que-atingiram-palmares-completam-10-anos-com-uma-barragem-entregue-cinco-foram-prometidas-em-2010.ghtml
+
+
 
 ## 2. Quem é afetado
 
 | Quem | Quantas pessoas | Como é afetado hoje |
-|---|---|---|
-| | | |
+|Proprietários de pequenos comércios | 1-5 por estabelecimento |Dificuldade para planejar compras e controlar perdas|
+|Funcionários responsáveis pelo estoque | 2-3 | Controle manual e dificuldade para identificar reposições |
 
 ## 3. Solução proposta
 
