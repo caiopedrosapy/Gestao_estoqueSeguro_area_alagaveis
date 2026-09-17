@@ -26,7 +26,9 @@ Quando as vendas não são registradas, decisões de compra podem depender da me
 ## 2. Quem é afetado
 
 | Quem | Quantas pessoas | Como é afetado hoje |
+
 |Proprietários de pequenos comércios | 1-5 por estabelecimento |Dificuldade para planejar compras e controlar perdas|
+
 |Funcionários responsáveis pelo estoque | 2-3 | Controle manual e dificuldade para identificar reposições |
 
 ## 3. Solução proposta
