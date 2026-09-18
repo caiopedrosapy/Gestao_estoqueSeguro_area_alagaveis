@@ -81,17 +81,17 @@ O que **não** faremos nesta versão, e por quê:
 
 | Risco | O que faremos |
 |---|---|
-| | |
+| Baixa adesão ou resistência dos comerciantes em utilizar o sistema| Desenvolver uma interface intuitiva, simples de operar
 
 ## 9. Critérios de sucesso
 
 | Objetivo | Como mediremos | Meta |
 |---|---|---|
-| | | |
+| Satisfação do comerciante no alerta e organização| Pesquisa de satisfação (feedback direto) aplicada aos proprietários participantes| 70% ~ 80% ou mais de aprovação|
 
 ## 10. O que fica depois
 
-- **Quem opera o sistema:**
-- **Quem mantém tecnicamente:**
-- **Custo mensal estimado:**
-- **Licença do código:**
+- **Quem opera o sistema:** Os proprietários e funcionários das lojas parceiras da ACP em Palmares.
+- **Quem mantém tecnicamente:** A equipe
+- **Custo mensal estimado:** R$ 0,00
+- **Licença do código:** Licença Open Source
