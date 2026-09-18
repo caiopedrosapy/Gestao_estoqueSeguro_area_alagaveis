@@ -38,15 +38,15 @@ O Estoque Seguro permite registrar produtos, entradas e saídas, manda alertas p
 
 >
 
-## 4. Funcionalidades do MVP (3 a 5)
+## 4. Funcionalidades do MVP (5)
 
 | # | Funcionalidade | Para quem | Por que é essencial |
 |---|---|---|---|
-| 1 | | | |
-| 2 | | | |
-| 3 | | | |
-| 4 | | | |
-| 5 | | | |
+| 1 |Cadastro e gerenciamento de produtos | Proprietários e funcionários responsáveis pelo estoque |Permite organizar os produtos armazenados, suas quantidades e demais informações necessárias para o controle do estoque. |
+| 2 |Registro de entradas e saídas de produtos | Proprietários e funcionários responsáveis pelo estoque |Mantém o estoque atualizado e reduz a dependência de anotações manuais ou da memória do responsável.|
+| 3 |Consulta da quantidade em estoque |Proprietários e funcionários responsáveis pelo estoque |Permite identificar rapidamente produtos em falta, excesso ou que precisam de reposição.|
+| 4 |Alertas sobre risco de chuva ou alagamento |Proprietários de pequenos comércios |Ajuda o comerciante a se preparar antecipadamente e tomar medidas para proteger mercadorias em períodos de risco.|
+| 5 |Identificação de produtos em situação de risco |Proprietários e funcionários responsáveis pelo estoque |Ajuda a priorizar quais mercadorias precisam ser protegidas ou movimentadas quando houver possibilidade de alagamento.|
 
 ## 5. Fora do escopo
 
