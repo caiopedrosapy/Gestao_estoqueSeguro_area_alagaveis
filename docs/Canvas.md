@@ -54,7 +54,11 @@ O que **não** faremos nesta versão, e por quê:
 
 | Não faremos | Por quê |
 |---|---|
-| | |
+|Venda e pagamento de produtos pelo sistema |O objetivo do Estoque Seguro é o controle e a proteção do estoque, não funcionar como um sistema de vendas ou caixa. |
+|Integração com sistemas de previsão meteorológica avançados |Nesta versão, serão utilizados alertas básicos de chuva ou risco de alagamento. Integrações mais complexas podem ser desenvolvidas futuramente. |
+|Sistema de entrega ou transporte de mercadorias |O sistema ajudará a identificar produtos que precisam ser protegidos, mas não será responsável pelo transporte ou retirada dessas mercadorias. |
+|Controle financeiro completo do comércio |O projeto poderá auxiliar indiretamente na redução de perdas, mas não terá funcionalidades completas de contabilidade, fluxo de caixa ou gestão financeira. |
+|Previsão automática de enchentes e perdas futuras |O MVP não terá modelos avançados para prever exatamente quando ocorrerá uma enchente ou calcular o valor futuro das perdas. O foco será fornecer informações e alertas para apoiar a decisão do comerciante. |
 
 ## 6. Usuários e papéis
 
