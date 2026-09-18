@@ -64,17 +64,18 @@ O que **não** faremos nesta versão, e por quê:
 
 | Papel | O que pode fazer |
 |---|---|
-| | |
+|Administrador / Proprietário|Possui acesso completo: cadastra e edita produtos, registra movimentações, visualiza relatórios de risco, configura dados do comércio e recebe alertas meteorológicos. |
+|Operador / Funcionário|Realiza lançamentos diários de entrada e saída, consulta o saldo atual do estoque e visualiza quais produtos precisam ser movimentados com urgência em caso de alerta.|
 
 ## 7. Restrições
 
 | Tipo | Restrição |
 |---|---|
 | Prazo | Semana 18 |
-| Equipe | `<N>` pessoas, `<X>` h/semana no total |
+| Equipe | `<4>` pessoas, `<20>` h/semana no total |
 | Técnica | TypeScript (NestJS + React), PostgreSQL, PaaS gratuita |
-| Contexto de uso | `<equipamento, conexão e local onde o sistema será usado>` |
-| Orçamento | `<R$ ou "zero">` |
+| Contexto de uso | `Computadores desktop, notebooks ou smartphones em balcões de atendimento e depósitos dos comércios em Palmares; conexão de internet banda larga ou dados móveis 3G/4G` |
+| Orçamento | `R$ 0,00` |
 
 ## 8. Riscos principais
 
