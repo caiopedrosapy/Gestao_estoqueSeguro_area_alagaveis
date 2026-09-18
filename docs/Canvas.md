@@ -3,10 +3,10 @@
 > Preencha em **uma página**. Se não couber, o escopo está grande demais.
 > Etapa 1 · Substitua os textos entre `<>`.
 
-**Projeto:** Gestão de Estoque Seguro para Comércios em Áreas Alagáveis ·
-**Equipe:** Caio Pedrosa - Rildo Neto - David Henrique - Alberto ·
-**Data:** <2026-09-20>
-**Organização parceira:** `<nome da organização>`
+**Projeto:** `<Gestão de Estoque Seguro para Comércios em Áreas Alagáveis ·>`
+**Equipe:** `<Caio Pedrosa - Rildo Neto - David Henrique - Alberto ·>`
+**Data:** `<2026-09-20>`
+**Organização parceira:** `ACP...`
 
 ---
 
