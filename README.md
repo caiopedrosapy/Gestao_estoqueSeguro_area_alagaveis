@@ -53,7 +53,6 @@ Identificação dos produtos que precisam ser protegidos
 * Alberto
 
 **Organização parceira:** ACP
-**IFPE-CAMPUS PALMARES**
 **Projeto:** 2026
 
 ## 🎯 Objetivo
