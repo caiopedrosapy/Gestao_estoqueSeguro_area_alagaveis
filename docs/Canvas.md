@@ -17,7 +17,7 @@
 
 **Evidências de que o problema existe** (dados, falas, observação):
 
-- Em pequenos comércios de áreas sujeitas a alagamento em Palmares, o proprietário precisa decidir o volume de compras e quais produtos proteger antes de períodos de chuva. No entanto, o histórico de vendas e estoque não é registrado de forma organizada, fazendo com que as decisões dependam apenas da memória e experiência do gestor.Dados: A ausência crônica desse controle administrativo acarreta prejuízos financeiros diretos para o comércio local, gerando tanto a falta crônica de produtos essenciais para as vendas quanto o excesso de mercadorias paradas em estoque.
+- Em pequenos comércios de áreas sujeitas a alagamento em Palmares, o proprietário precisa decidir o volume de compras e quais produtos proteger antes de períodos de chuva. No entanto, o histórico de vendas e estoque não é registrado de forma organizada, fazendo com que as decisões dependam apenas da memória e experiência do gestor. A ausência crônica desse controle administrativo acarreta prejuízos financeiros diretos para o comércio local, gerando tanto a falta crônica de produtos essenciais para as vendas quanto o excesso de mercadorias paradas em estoque.
 -  A gravidade do problema é confirmada pelo histórico de enchentes no município, como o desastre de junho de 2010 relatado pelo portal G1. O transbordamento do Rio Una destruiu lojas do comércio e comprometeu severamente a economia local, comprovando o risco extremo a que esses comerciantes estão expostos sem ferramentas de planejamento.
   O projeto foi desenvolvido a partir de uma necessidade observada em pequenos comércios de Palmares.
 Quando as vendas não são registradas, decisões de compra podem depender da memória e experiência do proprietário
