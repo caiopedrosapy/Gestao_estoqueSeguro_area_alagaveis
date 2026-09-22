@@ -1,9 +1,12 @@
 import { CreateProdutoDto } from './dto/create-produto.dto.js';
 import { UpdateProdutoDto } from './dto/update-produto.dto.js';
+import { Produto } from './entities/produto.entity.js';
 export declare class ProdutosService {
-    create(createProdutoDto: CreateProdutoDto): string;
-    findAll(): string;
-    findOne(id: number): string;
-    update(id: number, updateProdutoDto: UpdateProdutoDto): string;
-    remove(id: number): string;
+    private produtos;
+    private proximoId;
+    create(createProdutoDto: CreateProdutoDto): Produto;
+    findAll(): Produto[];
+    findOne(id: number): Produto;
+    update(id: number, updateProdutoDto: UpdateProdutoDto): Produto;
+    remove(id: number): Produto;
 }

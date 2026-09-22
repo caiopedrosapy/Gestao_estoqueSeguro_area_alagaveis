@@ -4,9 +4,9 @@ import { UpdateProdutoDto } from './dto/update-produto.dto.js';
 export declare class ProdutosController {
     private readonly produtosService;
     constructor(produtosService: ProdutosService);
-    create(createProdutoDto: CreateProdutoDto): string;
-    findAll(): string;
-    findOne(id: string): string;
-    update(id: string, updateProdutoDto: UpdateProdutoDto): string;
-    remove(id: string): string;
+    create(createProdutoDto: CreateProdutoDto): import("./entities/produto.entity.js").Produto;
+    findAll(): import("./entities/produto.entity.js").Produto[];
+    findOne(id: number): import("./entities/produto.entity.js").Produto;
+    update(id: number, updateProdutoDto: UpdateProdutoDto): import("./entities/produto.entity.js").Produto;
+    remove(id: number): import("./entities/produto.entity.js").Produto;
 }
