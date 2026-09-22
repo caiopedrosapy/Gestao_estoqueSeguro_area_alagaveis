@@ -4,22 +4,40 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException, } from '@nestjs/common';
 let ProdutosService = class ProdutosService {
+    produtos = [];
+    proximoId = 1;
     create(createProdutoDto) {
-        return 'This action adds a new produto';
+        const produto = {
+            id: this.proximoId++,
+            nome: createProdutoDto.nome,
+            categoria: createProdutoDto.categoria,
+            quantidade: createProdutoDto.quantidade,
+            prioritario: createProdutoDto.prioritario ?? false,
+        };
+        this.produtos.push(produto);
+        return produto;
     }
     findAll() {
-        return `This action returns all produtos`;
+        return this.produtos;
     }
     findOne(id) {
-        return `This action returns a #${id} produto`;
+        const produto = this.produtos.find((produto) => produto.id === id);
+        if (!produto) {
+            throw new NotFoundException('Produto não encontrado');
+        }
+        return produto;
     }
     update(id, updateProdutoDto) {
-        return `This action updates a #${id} produto`;
+        const produto = this.findOne(id);
+        Object.assign(produto, updateProdutoDto);
+        return produto;
     }
     remove(id) {
-        return `This action removes a #${id} produto`;
+        const produto = this.findOne(id);
+        this.produtos = this.produtos.filter((item) => item.id !== id);
+        return produto;
     }
 };
 ProdutosService = __decorate([
