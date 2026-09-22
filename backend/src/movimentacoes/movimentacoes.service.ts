@@ -1,26 +1,70 @@
-import { Injectable } from '@nestjs/common';
-import { CreateMovimentacoeDto } from './dto/create-movimentacoe.dto.js';
-import { UpdateMovimentacoeDto } from './dto/update-movimentacoe.dto.js';
+import {
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
+
+import { CreateMovimentacaoDto } from './dto/create-movimentacao.dto.js';
+import { UpdateMovimentacaoDto } from './dto/update-movimentacao.dto.js';
+import { Movimentacao } from './entities/movimentacao.entity.js';
 
 @Injectable()
 export class MovimentacoesService {
-  create(createMovimentacoeDto: CreateMovimentacoeDto) {
-    return 'This action adds a new movimentacoe';
+  private movimentacoes: Movimentacao[] = [];
+  private proximoId = 1;
+
+  create(createMovimentacaoDto: CreateMovimentacaoDto) {
+    const movimentacao: Movimentacao = {
+      id: this.proximoId++,
+      produto: createMovimentacaoDto.produto,
+      tipo: createMovimentacaoDto.tipo,
+      quantidade: createMovimentacaoDto.quantidade,
+    };
+
+    this.movimentacoes.push(movimentacao);
+
+    return movimentacao;
   }
 
   findAll() {
-    return `This action returns all movimentacoes`;
+    return this.movimentacoes;
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} movimentacoe`;
+    const movimentacao = this.movimentacoes.find(
+      (movimentacao) => movimentacao.id === id,
+    );
+
+    if (!movimentacao) {
+      throw new NotFoundException(
+        'Movimentação não encontrada',
+      );
+    }
+
+    return movimentacao;
   }
 
-  update(id: number, updateMovimentacoeDto: UpdateMovimentacoeDto) {
-    return `This action updates a #${id} movimentacoe`;
+  update(
+    id: number,
+    updateMovimentacaoDto: UpdateMovimentacaoDto,
+  ) {
+    const movimentacao = this.findOne(id);
+
+    Object.assign(
+      movimentacao,
+      updateMovimentacaoDto,
+    );
+
+    return movimentacao;
   }
 
   remove(id: number) {
-    return `This action removes a #${id} movimentacoe`;
+    const movimentacao = this.findOne(id);
+
+    this.movimentacoes =
+      this.movimentacoes.filter(
+        (item) => item.id !== id,
+      );
+
+    return movimentacao;
   }
 }
