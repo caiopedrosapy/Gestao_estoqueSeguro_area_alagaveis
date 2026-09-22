@@ -4,9 +4,9 @@ import { UpdateAlertaDto } from './dto/update-alerta.dto.js';
 export declare class AlertasController {
     private readonly alertasService;
     constructor(alertasService: AlertasService);
-    create(createAlertaDto: CreateAlertaDto): string;
-    findAll(): string;
-    findOne(id: string): string;
-    update(id: string, updateAlertaDto: UpdateAlertaDto): string;
-    remove(id: string): string;
+    create(createAlertaDto: CreateAlertaDto): import("./entities/alerta.entity.js").Alerta;
+    findAll(): import("./entities/alerta.entity.js").Alerta[];
+    findOne(id: number): import("./entities/alerta.entity.js").Alerta;
+    update(id: number, updateAlertaDto: UpdateAlertaDto): import("./entities/alerta.entity.js").Alerta;
+    remove(id: number): import("./entities/alerta.entity.js").Alerta;
 }

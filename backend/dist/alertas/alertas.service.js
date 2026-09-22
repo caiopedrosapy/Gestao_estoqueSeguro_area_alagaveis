@@ -4,22 +4,40 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException, } from '@nestjs/common';
 let AlertasService = class AlertasService {
+    alertas = [];
+    proximoId = 1;
     create(createAlertaDto) {
-        return 'This action adds a new alerta';
+        const alerta = {
+            id: this.proximoId++,
+            titulo: createAlertaDto.titulo,
+            nivel: createAlertaDto.nivel,
+            descricao: createAlertaDto.descricao,
+            ativo: createAlertaDto.ativo ?? true,
+        };
+        this.alertas.push(alerta);
+        return alerta;
     }
     findAll() {
-        return `This action returns all alertas`;
+        return this.alertas;
     }
     findOne(id) {
-        return `This action returns a #${id} alerta`;
+        const alerta = this.alertas.find((item) => item.id === id);
+        if (!alerta) {
+            throw new NotFoundException('Alerta não encontrado');
+        }
+        return alerta;
     }
     update(id, updateAlertaDto) {
-        return `This action updates a #${id} alerta`;
+        const alerta = this.findOne(id);
+        Object.assign(alerta, updateAlertaDto);
+        return alerta;
     }
     remove(id) {
-        return `This action removes a #${id} alerta`;
+        const alerta = this.findOne(id);
+        this.alertas = this.alertas.filter((item) => item.id !== id);
+        return alerta;
     }
 };
 AlertasService = __decorate([

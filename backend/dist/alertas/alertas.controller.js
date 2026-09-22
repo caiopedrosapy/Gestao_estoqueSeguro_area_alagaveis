@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, } from '@nestjs/common';
 import { AlertasService } from './alertas.service.js';
 import { CreateAlertaDto } from './dto/create-alerta.dto.js';
 import { UpdateAlertaDto } from './dto/update-alerta.dto.js';
@@ -26,13 +26,13 @@ let AlertasController = class AlertasController {
         return this.alertasService.findAll();
     }
     findOne(id) {
-        return this.alertasService.findOne(+id);
+        return this.alertasService.findOne(id);
     }
     update(id, updateAlertaDto) {
-        return this.alertasService.update(+id, updateAlertaDto);
+        return this.alertasService.update(id, updateAlertaDto);
     }
     remove(id) {
-        return this.alertasService.remove(+id);
+        return this.alertasService.remove(id);
     }
 };
 __decorate([
@@ -50,24 +50,24 @@ __decorate([
 ], AlertasController.prototype, "findAll", null);
 __decorate([
     Get(':id'),
-    __param(0, Param('id')),
+    __param(0, Param('id', ParseIntPipe)),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", void 0)
 ], AlertasController.prototype, "findOne", null);
 __decorate([
     Patch(':id'),
-    __param(0, Param('id')),
+    __param(0, Param('id', ParseIntPipe)),
     __param(1, Body()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, UpdateAlertaDto]),
+    __metadata("design:paramtypes", [Number, UpdateAlertaDto]),
     __metadata("design:returntype", void 0)
 ], AlertasController.prototype, "update", null);
 __decorate([
     Delete(':id'),
-    __param(0, Param('id')),
+    __param(0, Param('id', ParseIntPipe)),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", void 0)
 ], AlertasController.prototype, "remove", null);
 AlertasController = __decorate([
