@@ -1,1 +1,1 @@
-{"version":3,"file":"alerta.entity.js","sourceRoot":"","sources":["../../../src/alertas/entities/alerta.entity.ts"],"names":[],"mappings":"AAAA,MAAM,OAAO,MAAM;CAAG"}
+{"version":3,"file":"alerta.entity.js","sourceRoot":"","sources":["../../../src/alertas/entities/alerta.entity.ts"],"names":[],"mappings":"AAAA,MAAM,OAAO,MAAM;IACjB,EAAE,CAAU;IACZ,MAAM,CAAU;IAChB,KAAK,CAAU;IACf,SAAS,CAAU;IACnB,KAAK,CAAW;CACjB"}

@@ -5,8 +5,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 import { Module } from '@nestjs/common';
-import { AlertasService } from './alertas.service.js';
 import { AlertasController } from './alertas.controller.js';
+import { AlertasService } from './alertas.service.js';
 let AlertasModule = class AlertasModule {
 };
 AlertasModule = __decorate([

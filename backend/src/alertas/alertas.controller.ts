@@ -1,11 +1,23 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  ParseIntPipe,
+  Patch,
+  Post,
+} from '@nestjs/common';
+
 import { AlertasService } from './alertas.service.js';
 import { CreateAlertaDto } from './dto/create-alerta.dto.js';
 import { UpdateAlertaDto } from './dto/update-alerta.dto.js';
 
 @Controller('alertas')
 export class AlertasController {
-  constructor(private readonly alertasService: AlertasService) {}
+  constructor(
+    private readonly alertasService: AlertasService,
+  ) {}
 
   @Post()
   create(@Body() createAlertaDto: CreateAlertaDto) {
@@ -18,17 +30,20 @@ export class AlertasController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.alertasService.findOne(+id);
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.alertasService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateAlertaDto: UpdateAlertaDto) {
-    return this.alertasService.update(+id, updateAlertaDto);
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateAlertaDto: UpdateAlertaDto,
+  ) {
+    return this.alertasService.update(id, updateAlertaDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.alertasService.remove(+id);
+  remove(@Param('id', ParseIntPipe) id: number) {
+    return this.alertasService.remove(id);
   }
 }
