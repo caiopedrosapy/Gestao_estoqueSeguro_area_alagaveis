@@ -13,7 +13,7 @@ Sem eles, o documento volta para a equipe antes de ser pontuado.
 | --- | :---: | :---: |
 | Organização parceira externa, com aceite por escrito (carta de anuência ou e-mail) | ✓ | ☐ |
 | Houve ao menos uma conversa com a organização sobre o problema | ✓ | ☐ |
-| Acordo de equipe com papéis e *Definition of Done* | ☐ | ✓ |
+| Acordo de equipe com papéis e *Definition of Done* | ✓ | ☐ |
 
 Matriz de decisão, canvas e painel de problemas são **ferramentas de trabalho** — use-as, mas
 elas não são pontuadas separadamente. O que conta é o resultado abaixo.
