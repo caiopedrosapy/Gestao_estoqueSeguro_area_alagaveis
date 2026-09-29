@@ -12,7 +12,8 @@
 >Nota: Cada membro da equipe fez os teste de maneira separada, com equipamentos diferentes e meios diferentes de execução.
 
 ---
-
+* [Link Branches]([https://github.com/seu-usuario/seu-repositorio](https://github.com/caiopedrosapy/Gestao_estoqueSeguro_area_alagaveis/branches))
+---
 ## Validação Geral do Projeto
 
 | Item / Comando | Resultado do Teste |
