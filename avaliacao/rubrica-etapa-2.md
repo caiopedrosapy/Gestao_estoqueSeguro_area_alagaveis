@@ -17,7 +17,7 @@ Sem eles, a entrega volta para a equipe antes de ser pontuada.
 | Verificação | Sim | Não |
 | --- | :---: | :---: |
 | Repositório acessível, com o código do backend | ✓ | ☐ |
-| Modelo de dados versionado (migrações aplicadas, sem erro) | ☐ | ✓ |
+| Modelo de dados versionado (migrações aplicadas, sem erro) | ✓ | ☐ |
 | Ao menos um endpoint de API funcionando fim a fim (banco → resposta) | ✓ | ☐ |
 
 ## Critérios
