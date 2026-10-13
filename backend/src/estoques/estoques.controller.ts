@@ -1,34 +1,43 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Delete,
+  Patch,
+} from '@nestjs/common';
+import { IdPipe } from '../common/id.pipe.js';
 import { EstoquesService } from './estoques.service.js';
 import { CreateEstoqueDto } from './dto/create-estoque.dto.js';
 import { UpdateEstoqueDto } from './dto/update-estoque.dto.js';
 
 @Controller('estoques')
 export class EstoquesController {
-  constructor(private readonly estoquesService: EstoquesService) {}
+  constructor(private readonly service: EstoquesService) {}
 
   @Post()
-  create(@Body() createEstoqueDto: CreateEstoqueDto) {
-    return this.estoquesService.create(createEstoqueDto);
+  create(@Body() dto: CreateEstoqueDto) {
+    return this.service.create(dto);
   }
 
   @Get()
   findAll() {
-    return this.estoquesService.findAll();
+    return this.service.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.estoquesService.findOne(+id);
+  findOne(@Param('id', IdPipe) id: number) {
+    return this.service.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateEstoqueDto: UpdateEstoqueDto) {
-    return this.estoquesService.update(+id, updateEstoqueDto);
+  update(@Param('id', IdPipe) id: number, @Body() dto: UpdateEstoqueDto) {
+    return this.service.update(id, dto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.estoquesService.remove(+id);
+  remove(@Param('id', IdPipe) id: number) {
+    return this.service.remove(id);
   }
 }
