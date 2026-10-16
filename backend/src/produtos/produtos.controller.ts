@@ -7,11 +7,13 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 
 import { ProdutosService } from './produtos.service.js';
 import { CreateProdutoDto } from './dto/create-produto.dto.js';
 import { UpdateProdutoDto } from './dto/update-produto.dto.js';
+import { QueryProdutoDto  } from './dto/query-produto.dto.js';
 
 @Controller('produtos')
 export class ProdutosController {
@@ -29,8 +31,8 @@ export class ProdutosController {
   }
 
   @Get()
-  findAll() {
-    return this.produtosService.findAll();
+  findAll(@Query() query: QueryProdutoDto) {
+    return this.produtosService.findAll(query);
   }
 
   @Get(':id')
