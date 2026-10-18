@@ -1,13 +1,15 @@
 import {
-  BadRequestException,
+  ConflictException,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
 import { InjectDataSource } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
 
+import { databaseError } from '../common/database-error.js';
 import { Estoque } from '../estoques/entities/estoque.entity.js';
 import { CreateProdutoDto } from './dto/create-produto.dto.js';
+import { ProdutoResponseDto } from './dto/produto-response.dto.js';
 import { QueryProdutoDto } from './dto/query-produto.dto.js';
 import { UpdateProdutoDto } from './dto/update-produto.dto.js';
 import { Produto } from './entities/produto.entity.js';
@@ -16,111 +18,142 @@ import { Produto } from './entities/produto.entity.js';
 export class ProdutosService {
   constructor(
     @InjectDataSource()
-    private readonly dataSource: DataSource,
+    private readonly db: DataSource,
   ) {}
 
-  async create(createProdutoDto: CreateProdutoDto) {
-    const estoque = await this.dataSource
+  async create(dto: CreateProdutoDto) {
+    const local = await this.db
       .getRepository(Estoque)
-      .findOne({
-        where: { id: createProdutoDto.estoqueId },
-      });
+      .existsBy({ id: dto.estoqueId });
 
-    if (!estoque) {
-      throw new NotFoundException('Estoque não encontrado');
+    if (!local) {
+      throw new NotFoundException('Estoque não encontrado.');
     }
 
-    const produto = this.dataSource
-      .getRepository(Produto)
-      .create({
-        nome: createProdutoDto.nome,
-        categoria: createProdutoDto.categoria,
-        estoqueId: createProdutoDto.estoqueId,
-        quantidade: 0,
-        prioritario: createProdutoDto.prioritario ?? false,
-      });
+    const repo = this.db.getRepository(Produto);
 
-    return this.dataSource.getRepository(Produto).save(produto);
+    try {
+      const produto = await repo.save(
+        repo.create({
+          nome: dto.nome,
+          categoria: dto.categoria,
+          estoqueId: dto.estoqueId,
+          quantidade: 0,
+          prioritario: dto.prioritario ?? false,
+        }),
+      );
+
+      return ProdutoResponseDto.from(produto);
+    } catch (error) {
+      databaseError(error);
+    }
   }
 
   async findAll(query: QueryProdutoDto) {
-    const repository = this.dataSource.getRepository(Produto);
-    const queryBuilder = repository
-      .createQueryBuilder('produto')
-      .orderBy('produto.id', 'ASC');
+    const produtos = await this.db.getRepository(Produto).find({
+      where: {
+        ...(query.estoqueId !== undefined
+          ? { estoqueId: query.estoqueId }
+          : {}),
+        ...(query.prioritario !== undefined
+          ? { prioritario: query.prioritario === 'true' }
+          : {}),
+      },
+      order: { id: 'ASC' },
+    });
 
-    if (query.estoqueId !== undefined) {
-      queryBuilder.andWhere('produto.estoqueId = :estoqueId', {
-        estoqueId: query.estoqueId,
-      });
-    }
-
-    if (query.prioritario !== undefined) {
-      queryBuilder.andWhere('produto.prioritario = :prioritario', {
-        prioritario: query.prioritario === 'true',
-      });
-    }
-
-    return queryBuilder.getMany();
+    return produtos.map((produto) =>
+      ProdutoResponseDto.from(produto),
+    );
   }
 
   async findOne(id: number) {
-    const produto = await this.dataSource
+    const produto = await this.db
       .getRepository(Produto)
-      .findOne({ where: { id } });
+      .findOneBy({ id });
 
     if (!produto) {
-      throw new NotFoundException('Produto não encontrado');
+      throw new NotFoundException('Produto não encontrado.');
     }
 
-    return produto;
+    return ProdutoResponseDto.from(produto);
   }
 
-  async update(id: number, updateProdutoDto: UpdateProdutoDto) {
-    const repository = this.dataSource.getRepository(Produto);
-    const produto = await this.findOne(id);
+  async update(id: number, dto: UpdateProdutoDto) {
+    try {
+      return await this.db.transaction(async (manager) => {
+        const repo = manager.getRepository(Produto);
 
-    if (updateProdutoDto.estoqueId !== undefined) {
-      const movimentacoes = await this.dataSource
-        .getRepository('movimentacoes')
-        .createQueryBuilder('movimentacao')
-        .where('movimentacao.produtoId = :id', { id })
-        .getCount();
-
-      if (movimentacoes > 0) {
-        throw new BadRequestException(
-          'Não é possível alterar o estoque de um produto com movimentações',
-        );
-      }
-
-      const estoque = await this.dataSource
-        .getRepository(Estoque)
-        .findOne({
-          where: { id: updateProdutoDto.estoqueId },
+        const produto = await repo.findOne({
+          where: { id },
+          lock: { mode: 'pessimistic_write' },
         });
 
-      if (!estoque) {
-        throw new NotFoundException('Estoque não encontrado');
-      }
+        if (!produto) {
+          throw new NotFoundException('Produto não encontrado.');
+        }
+
+        if (
+          dto.estoqueId !== undefined &&
+          dto.estoqueId !== produto.estoqueId
+        ) {
+          const movimentacoes = await manager.query<{ id: number }[]>(
+            'SELECT id FROM movimentacoes WHERE produto_id = $1 LIMIT 1',
+            [id],
+          );
+
+          if (movimentacoes.length > 0) {
+            throw new ConflictException(
+              'Produto com movimentação não pode trocar de local.',
+            );
+          }
+
+          const estoqueExiste = await manager
+            .getRepository(Estoque)
+            .existsBy({ id: dto.estoqueId });
+
+          if (!estoqueExiste) {
+            throw new NotFoundException('Estoque não encontrado.');
+          }
+        }
+
+        Object.assign(produto, dto);
+
+        const atualizado = await repo.save(produto);
+
+        return ProdutoResponseDto.from(atualizado);
+      });
+    } catch (error) {
+      databaseError(error);
     }
-
-    Object.assign(produto, updateProdutoDto);
-
-    return repository.save(produto);
   }
 
   async remove(id: number) {
-    const repository = this.dataSource.getRepository(Produto);
-    const produto = await this.findOne(id);
+    try {
+      return await this.db.transaction(async (manager) => {
+        const repo = manager.getRepository(Produto);
 
-    if (produto.quantidade !== 0) {
-      throw new BadRequestException(
-        'Só é possível excluir produtos com quantidade zero',
-      );
+        const produto = await repo.findOne({
+          where: { id },
+          lock: { mode: 'pessimistic_write' },
+        });
+
+        if (!produto) {
+          throw new NotFoundException('Produto não encontrado.');
+        }
+
+        if (produto.quantidade !== 0) {
+          throw new ConflictException(
+            'Produto ainda possui saldo.',
+          );
+        }
+
+        await repo.delete(id);
+
+        return ProdutoResponseDto.from(produto);
+      });
+    } catch (error) {
+      databaseError(error);
     }
-
-    await repository.remove(produto);
-
-    return produto;
   }
 }
