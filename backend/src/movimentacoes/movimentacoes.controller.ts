@@ -1,62 +1,25 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  ParseIntPipe,
-  Patch,
-  Post,
-} from '@nestjs/common';
-
+import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
+import { IdPipe } from '../common/id.pipe.js';
 import { MovimentacoesService } from './movimentacoes.service.js';
 import { CreateMovimentacaoDto } from './dto/create-movimentacao.dto.js';
-import { UpdateMovimentacaoDto } from './dto/update-movimentacao.dto.js';
+import { QueryMovimentacaoDto } from './dto/query-movimentacao.dto.js';
 
 @Controller('movimentacoes')
 export class MovimentacoesController {
-  constructor(
-    private readonly movimentacoesService: MovimentacoesService,
-  ) {}
+  constructor(private readonly service: MovimentacoesService) {}
 
   @Post()
-  create(
-    @Body()
-    createMovimentacaoDto: CreateMovimentacaoDto,
-  ) {
-    return this.movimentacoesService.create(
-      createMovimentacaoDto,
-    );
+  create(@Body() dto: CreateMovimentacaoDto) {
+    return this.service.create(dto);
   }
 
   @Get()
-  findAll() {
-    return this.movimentacoesService.findAll();
+  findAll(@Query() query: QueryMovimentacaoDto) {
+    return this.service.findAll(query);
   }
 
   @Get(':id')
-  findOne(
-    @Param('id', ParseIntPipe) id: number,
-  ) {
-    return this.movimentacoesService.findOne(id);
-  }
-
-  @Patch(':id')
-  update(
-    @Param('id', ParseIntPipe) id: number,
-    @Body()
-    updateMovimentacaoDto: UpdateMovimentacaoDto,
-  ) {
-    return this.movimentacoesService.update(
-      id,
-      updateMovimentacaoDto,
-    );
-  }
-
-  @Delete(':id')
-  remove(
-    @Param('id', ParseIntPipe) id: number,
-  ) {
-    return this.movimentacoesService.remove(id);
+  findOne(@Param('id', IdPipe) id: number) {
+    return this.service.findOne(id);
   }
 }

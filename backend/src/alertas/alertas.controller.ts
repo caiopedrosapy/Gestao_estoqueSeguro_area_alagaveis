@@ -1,49 +1,50 @@
 import {
   Body,
   Controller,
-  Delete,
   Get,
   Param,
-  ParseIntPipe,
-  Patch,
   Post,
+  Delete,
+  Patch,
+  Query,
 } from '@nestjs/common';
-
+import { IdPipe } from '../common/id.pipe.js';
 import { AlertasService } from './alertas.service.js';
 import { CreateAlertaDto } from './dto/create-alerta.dto.js';
 import { UpdateAlertaDto } from './dto/update-alerta.dto.js';
+import { QueryAlertaDto } from './dto/query-alerta.dto.js';
 
 @Controller('alertas')
 export class AlertasController {
-  constructor(
-    private readonly alertasService: AlertasService,
-  ) {}
+  constructor(private readonly service: AlertasService) {}
 
   @Post()
-  create(@Body() createAlertaDto: CreateAlertaDto) {
-    return this.alertasService.create(createAlertaDto);
+  create(@Body() dto: CreateAlertaDto) {
+    return this.service.create(dto);
   }
 
   @Get()
-  findAll() {
-    return this.alertasService.findAll();
+  findAll(@Query() query: QueryAlertaDto) {
+    return this.service.findAll(query);
+  }
+
+  @Get(':id/produtos-em-risco')
+  produtosEmRisco(@Param('id', IdPipe) id: number) {
+    return this.service.produtosEmRisco(id);
   }
 
   @Get(':id')
-  findOne(@Param('id', ParseIntPipe) id: number) {
-    return this.alertasService.findOne(id);
+  findOne(@Param('id', IdPipe) id: number) {
+    return this.service.findOne(id);
   }
 
   @Patch(':id')
-  update(
-    @Param('id', ParseIntPipe) id: number,
-    @Body() updateAlertaDto: UpdateAlertaDto,
-  ) {
-    return this.alertasService.update(id, updateAlertaDto);
+  update(@Param('id', IdPipe) id: number, @Body() dto: UpdateAlertaDto) {
+    return this.service.update(id, dto);
   }
 
   @Delete(':id')
-  remove(@Param('id', ParseIntPipe) id: number) {
-    return this.alertasService.remove(id);
+  remove(@Param('id', IdPipe) id: number) {
+    return this.service.remove(id);
   }
 }
