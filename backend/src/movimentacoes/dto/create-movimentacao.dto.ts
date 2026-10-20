@@ -1,20 +1,17 @@
-import {
-  IsIn,
-  IsInt,
-  IsNotEmpty,
-  IsString,
-  Min,
-} from 'class-validator';
+import { IsEnum, IsInt, Max, Min } from 'class-validator';
+import { TipoMovimentacao } from '../entities/movimentacao.entity.js';
 
 export class CreateMovimentacaoDto {
-  @IsString()
-  @IsNotEmpty()
-  produto!: string;
+  @IsInt()
+  @Min(1)
+  @Max(2147483647)
+  produtoId!: number;
 
-  @IsIn(['ENTRADA', 'SAIDA'])
-  tipo!: string;
+  @IsEnum(TipoMovimentacao)
+  tipo!: TipoMovimentacao;
 
   @IsInt()
   @Min(1)
+  @Max(2147483647)
   quantidade!: number;
 }
