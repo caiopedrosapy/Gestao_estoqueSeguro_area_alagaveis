@@ -16,7 +16,10 @@ export const databaseOptions: DataSourceOptions = {
   type: 'postgres',
   url: process.env.DATABASE_URL,
   entities: [Estoque, Produto, Movimentacao, Alerta],
-  migrations: [Inicial1791500000000],
+  migrations: [
+    Inicial1791500000000,
+    'dist/migracoes/*.js',
+  ],
   synchronize: false,
   migrationsRun: false,
 };
