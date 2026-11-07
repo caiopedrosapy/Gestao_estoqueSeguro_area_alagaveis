@@ -134,21 +134,23 @@ Os índices existentes `idx_produtos_estoque`, `idx_movimentacoes_produto` e `id
 
 ## 7 Verificação da Atividade 2
 
-Esta seção deve ser preenchida com as execuções reais da versão final. Os resultados da entrega anterior não comprovam as alterações novas.
+As execuções realizadas estão registradas no
+[relatório de verificação](verificacao-entrega.md).
 
-| Verificação | Evidência a registrar |
+| Verificação | Resultado observado |
 | --- | --- |
-| Banco vazio | Comando e saída de migration:run, versão testada e migrações aplicadas |
-| Esquema coerente | Saída de migration:check |
-| Preservação | Comparação de registros, saldos, históricos e classificações antes/depois |
-| Reversão | Saída de migration:revert e reaplicação em banco descartável |
-| Seed | Comando, dados criados e cobertura das relações 1-N e N-N |
-| Listagem | Requisição paginada e resposta com estoque e categorias |
-| Quantidade de consultas | Log SQL de páginas com tamanhos diferentes e contagem real |
-| Restrição | Comando ou curl, resposta HTTP e estado do banco após a recusa |
-| Testes | Comando, resultado, responsável, data e commit testado |
+| Migração | Categorias1794000000000 aplicada com sucesso e COMMIT |
+| Seed | Criou 30 produtos DEMO, dois locais, categorias, vínculos, movimentos e alerta |
+| Listagem paginada | Página com tamanho 5 retornou 5 produtos; tamanho 20 retornou 20; total de 32 produtos |
+| Quantidade de consultas | Ambas as páginas executaram 3 SELECTs |
+| Restrição no banco | Exclusão de local vinculado recusada com código 23001 |
+| Resposta da API | A mesma exclusão retornou HTTP 409 |
+| Testes E2E | 11 testes aprovados, zero falhas e zero cancelamentos |
 
-Até que essas evidências sejam acrescentadas, esta seção não representa uma validação concluída da Atividade 2.
+Ainda faltam evidências específicas de aplicação em banco vazio,
+reversão e reaplicação, comparação dos dados antes/depois
+e execução de migration:check. Esses itens não são apresentados
+como verificações concluídas.
 
 ## 8 Referências
 
