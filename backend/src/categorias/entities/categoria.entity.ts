@@ -1,4 +1,3 @@
-
 import {
   Column,
   Entity,
@@ -21,9 +20,15 @@ export class Categoria {
   })
   publicId!: string;
 
-  @Column({ type: 'varchar', length: 80 })
+  @Column({
+    type: 'varchar',
+    length: 80,
+    unique: true,
+  })
   nome!: string;
 
-  @ManyToMany(() => Produto, (produto) => produto.categorias)
+  @ManyToMany(() => Produto, (produto) => produto.categorias, {
+    onDelete: 'RESTRICT',
+  })
   produtos!: Relation<Produto[]>;
 }
