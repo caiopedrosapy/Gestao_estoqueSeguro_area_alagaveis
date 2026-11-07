@@ -1,12 +1,16 @@
+
 import {
   Column,
   Entity,
   JoinColumn,
+  JoinTable,
+  ManyToMany,
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import type { Relation } from 'typeorm';
 import { Estoque } from '../../estoques/entities/estoque.entity.js';
+import { Categoria } from '../../categorias/entities/categoria.entity.js';
 
 @Entity('produtos')
 export class Produto {
@@ -16,6 +20,7 @@ export class Produto {
   @Column({ type: 'varchar', length: 120 })
   nome!: string;
 
+  // Campo antigo mantido durante a transição.
   @Column({ type: 'varchar', length: 80 })
   categoria!: string;
 
@@ -28,7 +33,24 @@ export class Produto {
   @Column({ name: 'estoque_id', type: 'integer' })
   estoqueId!: number;
 
-  @ManyToOne(() => Estoque, { nullable: false, onDelete: 'RESTRICT' })
+  @ManyToOne(() => Estoque, {
+    nullable: false,
+    onDelete: 'RESTRICT',
+  })
   @JoinColumn({ name: 'estoque_id' })
   estoque!: Relation<Estoque>;
+
+  @ManyToMany(() => Categoria, (categoria) => categoria.produtos)
+  @JoinTable({
+    name: 'produtos_categorias',
+    joinColumn: {
+      name: 'produto_id',
+      referencedColumnName: 'id',
+    },
+    inverseJoinColumn: {
+      name: 'categoria_id',
+      referencedColumnName: 'id',
+    },
+  })
+  categorias!: Relation<Categoria[]>;
 }
