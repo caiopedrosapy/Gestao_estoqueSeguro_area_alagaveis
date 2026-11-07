@@ -50,21 +50,28 @@ export class ProdutosService {
   }
 
   async findAll(query: QueryProdutoDto) {
-    const produtos = await this.db.getRepository(Produto).find({
+    const pagina = query.pagina ?? 1;
+    const tamanho = query.tamanho ?? 20;
+    const [rows, total] = await this.db.getRepository(Produto).findAndCount({
       where: {
-        ...(query.estoqueId !== undefined
-          ? { estoqueId: query.estoqueId }
-          : {}),
-        ...(query.prioritario !== undefined
-          ? { prioritario: query.prioritario === 'true' }
-          : {}),
+        ...(query.estoqueId !== undefined ? { estoqueId: query.estoqueId } : {}),
+        ...(query.prioritario !== undefined ? { prioritario: query.prioritario === 'true' } : {}),
       },
+      relations: { estoque: true, categorias: true },
+      relationLoadStrategy: 'join',
       order: { id: 'ASC' },
+      skip: (pagina - 1) * tamanho,
+      take: tamanho,
     });
-
-    return produtos.map((produto) =>
-      ProdutoResponseDto.from(produto),
-    );
+    return {
+      itens: rows.map((p) => ({
+        id: p.id, nome: p.nome, categoria: p.categoria,
+        estoqueId: p.estoqueId, quantidade: p.quantidade, prioritario: p.prioritario,
+        estoque: { id: p.estoque.id, nome: p.estoque.nome, seguro: p.estoque.seguro },
+        categorias: p.categorias.map((c) => ({ id: c.id, publicId: c.publicId, nome: c.nome })),
+      })),
+      total, pagina, tamanho,
+    };
   }
 
   async findOne(id: number) {

@@ -259,8 +259,8 @@ test('fluxo integrado das quatro entidades', async (t) => {
         'GET',
         `/produtos?estoqueId=${local.id}&prioritario=true`,
       );
-      assert.ok(rows.some((p) => p.id === produto.id));
-      assert.ok(rows.every((p) => p.estoqueId === local.id && p.prioritario));
+      assert.ok(rows.itens.some((p) => p.id === produto.id));
+      assert.ok(rows.itens.every((p) => p.estoqueId === local.id && p.prioritario));
       await call('GET', '/produtos?prioritario=talvez', undefined, 400);
       await call('GET', '/movimentacoes?produtoId=abc', undefined, 400);
     });
