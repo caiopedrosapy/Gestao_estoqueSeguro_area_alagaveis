@@ -68,3 +68,17 @@ O projeto tem como contexto inicial pequenos comércios de **Palmares, Pernambuc
 
 **Estoque Seguro 🌧️📦**
 *Mais organização para o estoque. Mais preparo para a possíveis enchentes.*
+
+
+
+## Executar o backend e a entrega de entidades
+
+Use Node.js 24 e PostgreSQL. Crie estoque_seguro e estoque_seguro_teste no pgAdmin. Dentro de backend, execute npm ci, copie .env.example para .env somente se o arquivo ainda nao existir e configure as duas conexoes com suas credenciais locais. O arquivo .env nao deve ser versionado.
+
+A sequencia e: npm run migration:run, npm run seed e npm run start:dev. Para verificar, execute npm run lint, npm test, npm run test:e2e e npm run verify:entrega. O teste integrado usa TEST_DATABASE_URL em banco exclusivo. O roteiro de reversao em banco descartavel esta em [docs/EXECUCAO-ENTREGA.md](docs/EXECUCAO-ENTREGA.md).
+
+A listagem GET /produtos?pagina=1&tamanho=5 devolve itens, total, pagina e tamanho, incluindo estoque e categorias. O tamanho maximo e 100.
+
+Escopo implementado: produtos, locais, movimentacoes, alertas manuais e classificacoes N-N demonstradas por migracao e seed. Autenticacao, integracao meteorologica externa e CRUD completo de categorias sao evolucoes futuras. A lista de funcionalidades proposta no inicio deste README nao significa que esses recursos futuros ja estao implementados.
+
+O modelo fica em [docs/modelo-de-dados.md](docs/modelo-de-dados.md). A verificacao executada e registrada por verify:entrega em docs/verificacao-entrega.md.
