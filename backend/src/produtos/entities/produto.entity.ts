@@ -40,7 +40,9 @@ export class Produto {
   @JoinColumn({ name: 'estoque_id' })
   estoque!: Relation<Estoque>;
 
-  @ManyToMany(() => Categoria, (categoria) => categoria.produtos)
+  @ManyToMany(() => Categoria, (categoria) => categoria.produtos, {
+  onDelete: 'CASCADE',
+})
   @JoinTable({
     name: 'produtos_categorias',
     joinColumn: {
