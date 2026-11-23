@@ -1,6 +1,8 @@
 import {
+  Check,
   Column,
   Entity,
+  Generated,
   ManyToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -8,6 +10,7 @@ import type { Relation } from 'typeorm';
 import { Produto } from '../../produtos/entities/produto.entity.js';
 
 @Entity('categorias')
+@Check('categorias_nome_check', "btrim(nome) <> ''")
 export class Categoria {
   @PrimaryGeneratedColumn()
   id!: number;
@@ -16,8 +19,8 @@ export class Categoria {
     name: 'public_id',
     type: 'uuid',
     unique: true,
-    default: () => 'gen_random_uuid()',
   })
+  @Generated('uuid')
   publicId!: string;
 
   @Column({
@@ -29,6 +32,7 @@ export class Categoria {
 
   @ManyToMany(() => Produto, (produto) => produto.categorias, {
     onDelete: 'RESTRICT',
+    onUpdate: 'NO ACTION',
   })
   produtos!: Relation<Produto[]>;
 }

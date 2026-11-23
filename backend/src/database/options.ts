@@ -16,6 +16,7 @@ if (!process.env.DATABASE_URL) {
 
 export const databaseOptions: DataSourceOptions = {
   type: 'postgres',
+  uuidExtension: 'pgcrypto',
   url: process.env.DATABASE_URL,
   entities: [Estoque, Produto, Categoria, Movimentacao, Alerta],
   migrations: [

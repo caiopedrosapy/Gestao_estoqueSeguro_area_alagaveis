@@ -1,6 +1,9 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Check, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('estoques')
+@Check('estoques_nome_check', "btrim(nome) <> ''")
+@Check('estoques_localizacao_check', "btrim(localizacao) <> ''")
+@Check('estoques_altura_cm_check', 'altura_cm >= 0')
 export class Estoque {
   @PrimaryGeneratedColumn()
   id!: number;

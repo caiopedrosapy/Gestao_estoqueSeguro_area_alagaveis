@@ -1,7 +1,9 @@
 import {
+  Check,
   Column,
   CreateDateColumn,
   Entity,
+  Index,
   JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
@@ -16,6 +18,10 @@ export enum NivelAlerta {
 }
 
 @Entity('alertas')
+@Check('alertas_titulo_check', "btrim(titulo) <> ''")
+@Check('alertas_nivel_check', "nivel IN ('BAIXO', 'MEDIO', 'ALTO')")
+@Check('alertas_descricao_check', "btrim(descricao) <> ''")
+@Index('idx_alertas_estoque', ['estoqueId'])
 export class Alerta {
   @PrimaryGeneratedColumn()
   id!: number;
@@ -24,7 +30,7 @@ export class Alerta {
   estoqueId!: number;
 
   @ManyToOne(() => Estoque, { nullable: false, onDelete: 'RESTRICT' })
-  @JoinColumn({ name: 'estoque_id' })
+  @JoinColumn({ name: 'estoque_id', foreignKeyConstraintName: 'alertas_estoque_id_fkey' })
   estoque!: Relation<Estoque>;
 
   @Column({ type: 'varchar', length: 160 })

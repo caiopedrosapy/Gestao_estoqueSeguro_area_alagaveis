@@ -32,12 +32,14 @@ npm run migration:revert
 npm run migration:run
 ```
 
+O primeiro revert desfaz apenas o ajuste mais recente dos índices de classificação. Reverter também a migração Categorias remove os novos vínculos e as novas categorias.
+
 Nao executar revert sobre o banco utilizado para registros importantes.
 
 ## Limites desta entrega
 
 O cadastro de produtos conserva o contrato legado com categoria em texto. A migracao e o seed demonstram a classificacao N-N; o cadastro e a edicao completa de categorias pela API ficam como evolucao posterior. Os alertas permanecem manuais. As rotas existentes conservam seus identificadores numericos; Categoria possui UUID publico.
 
-O comando migration:check existe, mas o alinhamento integral dos metadados legados com todos os CHECKs e nomes de restricoes da migracao inicial precisa ser conferido separadamente. Nao registrar esse comando como aprovado sem executa-lo.
+Use npm run migration:check depois de aplicar as migrações. Se o TypeORM apontar diferenças, revise o SQL antes de gerar e aplicar alterações. O resultado da validação está em [ensaio-migracoes.md](ensaio-migracoes.md).
 
-O relatorio de consultas e da restricao e gerado por verify:entrega em docs/verificacao-entrega.md. Vincular esse relatorio na secao Verificacao de docs/modelo-de-dados.md. Registrar os resultados reais dos testes e dos ensaios de migracao; nao substituir evidencias por este roteiro.
+O comando npm run verify:entrega usa curl (curl.exe no Windows) e grava o SQL da listagem e a resposta HTTP 409 em [verificacao-entrega.md](verificacao-entrega.md). Rode depois do seed.
