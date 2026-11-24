@@ -1,0 +1,1678 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/": {
+      "get": {
+        "operationId": "AppController_getHello",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "App"
+        ]
+      }
+    },
+    "/estoques": {
+      "post": {
+        "operationId": "EstoquesController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateEstoqueDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EstoqueResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Entrada inválida.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "statusCode": 400,
+                  "error": "Bad Request",
+                  "message": [
+                    "Parâmetro ou corpo inválido."
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Estoques"
+        ]
+      },
+      "get": {
+        "operationId": "EstoquesController_findAll",
+        "parameters": [
+          {
+            "name": "pagina",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "minimum": 1,
+              "maximum": 21474836,
+              "default": 1,
+              "type": "integer"
+            }
+          },
+          {
+            "name": "tamanho",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EstoquePaginaDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Entrada inválida.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "statusCode": 400,
+                  "error": "Bad Request",
+                  "message": [
+                    "Parâmetro ou corpo inválido."
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Estoques"
+        ]
+      }
+    },
+    "/estoques/{id}": {
+      "get": {
+        "operationId": "EstoquesController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EstoqueResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Entrada inválida.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "statusCode": 400,
+                  "error": "Bad Request",
+                  "message": [
+                    "Parâmetro ou corpo inválido."
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Estoque não encontrado.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "statusCode": 404,
+                  "error": "Not Found",
+                  "message": "Estoque não encontrado."
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Estoques"
+        ]
+      },
+      "patch": {
+        "operationId": "EstoquesController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateEstoqueDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EstoqueResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Entrada inválida.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "statusCode": 400,
+                  "error": "Bad Request",
+                  "message": [
+                    "Parâmetro ou corpo inválido."
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Estoque não encontrado.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "statusCode": 404,
+                  "error": "Not Found",
+                  "message": "Estoque não encontrado."
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Estoques"
+        ]
+      },
+      "delete": {
+        "operationId": "EstoquesController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Estoque removido."
+          },
+          "400": {
+            "description": "Entrada inválida.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "statusCode": 400,
+                  "error": "Bad Request",
+                  "message": [
+                    "Parâmetro ou corpo inválido."
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Estoque não encontrado.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "statusCode": 404,
+                  "error": "Not Found",
+                  "message": "Estoque não encontrado."
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Estoque possui produtos ou alertas vinculados.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "statusCode": 409,
+                  "error": "Conflict",
+                  "message": "Estoque possui produtos ou alertas vinculados."
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Estoques"
+        ]
+      }
+    },
+    "/produtos": {
+      "post": {
+        "operationId": "ProdutosController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateProdutoDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProdutoResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Entrada inválida.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "statusCode": 400,
+                  "error": "Bad Request",
+                  "message": [
+                    "Parâmetro ou corpo inválido."
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Estoque não encontrado.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "statusCode": 404,
+                  "error": "Not Found",
+                  "message": "Estoque não encontrado."
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "A operação conflita com vínculos do produto.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "statusCode": 409,
+                  "error": "Conflict",
+                  "message": "A operação conflita com vínculos do produto."
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Produtos"
+        ]
+      },
+      "get": {
+        "operationId": "ProdutosController_findAll",
+        "parameters": [
+          {
+            "name": "pagina",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "minimum": 1,
+              "maximum": 21474836,
+              "default": 1,
+              "type": "integer"
+            }
+          },
+          {
+            "name": "tamanho",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "integer"
+            }
+          },
+          {
+            "name": "estoqueId",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "minimum": 1,
+              "maximum": 2147483647,
+              "type": "integer"
+            }
+          },
+          {
+            "name": "prioritario",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "true",
+                "false"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProdutoPaginaDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Entrada inválida.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "statusCode": 400,
+                  "error": "Bad Request",
+                  "message": [
+                    "Parâmetro ou corpo inválido."
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Produtos"
+        ]
+      }
+    },
+    "/produtos/{id}": {
+      "get": {
+        "operationId": "ProdutosController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProdutoResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Entrada inválida.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "statusCode": 400,
+                  "error": "Bad Request",
+                  "message": [
+                    "Parâmetro ou corpo inválido."
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Produto não encontrado.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "statusCode": 404,
+                  "error": "Not Found",
+                  "message": "Produto não encontrado."
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Produtos"
+        ]
+      },
+      "patch": {
+        "operationId": "ProdutosController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateProdutoDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProdutoResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Entrada inválida.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "statusCode": 400,
+                  "error": "Bad Request",
+                  "message": [
+                    "Parâmetro ou corpo inválido."
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Produto ou estoque não encontrado.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "statusCode": 404,
+                  "error": "Not Found",
+                  "message": "Produto ou estoque não encontrado."
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Produto com movimentação não pode trocar de local.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "statusCode": 409,
+                  "error": "Conflict",
+                  "message": "Produto com movimentação não pode trocar de local."
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Produtos"
+        ]
+      },
+      "delete": {
+        "operationId": "ProdutosController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Produto removido."
+          },
+          "400": {
+            "description": "Entrada inválida.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "statusCode": 400,
+                  "error": "Bad Request",
+                  "message": [
+                    "Parâmetro ou corpo inválido."
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Produto não encontrado.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "statusCode": 404,
+                  "error": "Not Found",
+                  "message": "Produto não encontrado."
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Produto possui saldo ou histórico de movimentações.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "statusCode": 409,
+                  "error": "Conflict",
+                  "message": "Produto possui saldo ou histórico de movimentações."
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Produtos"
+        ]
+      }
+    },
+    "/movimentacoes": {
+      "post": {
+        "operationId": "MovimentacoesController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateMovimentacaoDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MovimentacaoResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Entrada inválida.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "statusCode": 400,
+                  "error": "Bad Request",
+                  "message": [
+                    "Parâmetro ou corpo inválido."
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Produto não encontrado.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "statusCode": 404,
+                  "error": "Not Found",
+                  "message": "Produto não encontrado."
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Saldo insuficiente ou quantidade acima do limite.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "statusCode": 409,
+                  "error": "Conflict",
+                  "message": "Saldo insuficiente ou quantidade acima do limite."
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Movimentações"
+        ]
+      },
+      "get": {
+        "operationId": "MovimentacoesController_findAll",
+        "parameters": [
+          {
+            "name": "produtoId",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "minimum": 1,
+              "maximum": 2147483647,
+              "type": "integer"
+            }
+          },
+          {
+            "name": "tipo",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ENTRADA",
+                "SAIDA"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MovimentacaoResponseDto"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Entrada inválida.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "statusCode": 400,
+                  "error": "Bad Request",
+                  "message": [
+                    "Parâmetro ou corpo inválido."
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Movimentações"
+        ]
+      }
+    },
+    "/movimentacoes/{id}": {
+      "get": {
+        "operationId": "MovimentacoesController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MovimentacaoResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Entrada inválida.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "statusCode": 400,
+                  "error": "Bad Request",
+                  "message": [
+                    "Parâmetro ou corpo inválido."
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Movimentação não encontrada.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "statusCode": 404,
+                  "error": "Not Found",
+                  "message": "Movimentação não encontrada."
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Movimentações"
+        ]
+      }
+    },
+    "/alertas": {
+      "post": {
+        "operationId": "AlertasController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAlertaDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AlertaResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Entrada inválida.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "statusCode": 400,
+                  "error": "Bad Request",
+                  "message": [
+                    "Parâmetro ou corpo inválido."
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Estoque não encontrado.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "statusCode": 404,
+                  "error": "Not Found",
+                  "message": "Estoque não encontrado."
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "A operação conflita com vínculos do alerta.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "statusCode": 409,
+                  "error": "Conflict",
+                  "message": "A operação conflita com vínculos do alerta."
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Alertas"
+        ]
+      },
+      "get": {
+        "operationId": "AlertasController_findAll",
+        "parameters": [
+          {
+            "name": "estoqueId",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "minimum": 1,
+              "maximum": 2147483647,
+              "type": "integer"
+            }
+          },
+          {
+            "name": "ativo",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "true",
+                "false"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AlertaResponseDto"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Entrada inválida.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "statusCode": 400,
+                  "error": "Bad Request",
+                  "message": [
+                    "Parâmetro ou corpo inválido."
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Alertas"
+        ]
+      }
+    },
+    "/alertas/{id}/produtos-em-risco": {
+      "get": {
+        "operationId": "AlertasController_produtosEmRisco",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProdutosEmRiscoResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Entrada inválida.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "statusCode": 400,
+                  "error": "Bad Request",
+                  "message": [
+                    "Parâmetro ou corpo inválido."
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Alerta não encontrado.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "statusCode": 404,
+                  "error": "Not Found",
+                  "message": "Alerta não encontrado."
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Alertas"
+        ]
+      }
+    },
+    "/alertas/{id}": {
+      "get": {
+        "operationId": "AlertasController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AlertaResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Entrada inválida.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "statusCode": 400,
+                  "error": "Bad Request",
+                  "message": [
+                    "Parâmetro ou corpo inválido."
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Alerta não encontrado.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "statusCode": 404,
+                  "error": "Not Found",
+                  "message": "Alerta não encontrado."
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Alertas"
+        ]
+      },
+      "patch": {
+        "operationId": "AlertasController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateAlertaDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AlertaResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Entrada inválida.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "statusCode": 400,
+                  "error": "Bad Request",
+                  "message": [
+                    "Parâmetro ou corpo inválido."
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Alerta ou estoque não encontrado.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "statusCode": 404,
+                  "error": "Not Found",
+                  "message": "Alerta ou estoque não encontrado."
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "A operação conflita com vínculos do alerta.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "statusCode": 409,
+                  "error": "Conflict",
+                  "message": "A operação conflita com vínculos do alerta."
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Alertas"
+        ]
+      },
+      "delete": {
+        "operationId": "AlertasController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Alerta removido."
+          },
+          "400": {
+            "description": "Entrada inválida.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "statusCode": 400,
+                  "error": "Bad Request",
+                  "message": [
+                    "Parâmetro ou corpo inválido."
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Alerta não encontrado.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "statusCode": 404,
+                  "error": "Not Found",
+                  "message": "Alerta não encontrado."
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Alertas"
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "Estoque Seguro",
+    "description": "API de produtos, locais de estoque, movimentações e alertas.",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [],
+  "servers": [],
+  "components": {
+    "schemas": {
+      "CreateEstoqueDto": {
+        "type": "object",
+        "properties": {
+          "nome": {
+            "type": "string",
+            "maxLength": 120
+          },
+          "localizacao": {
+            "type": "string",
+            "maxLength": 200
+          },
+          "alturaCm": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 2147483647
+          },
+          "seguro": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "nome",
+          "localizacao",
+          "alturaCm"
+        ]
+      },
+      "EstoqueResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "nome": {
+            "type": "string"
+          },
+          "localizacao": {
+            "type": "string"
+          },
+          "alturaCm": {
+            "type": "integer"
+          },
+          "seguro": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "nome",
+          "localizacao",
+          "alturaCm",
+          "seguro"
+        ]
+      },
+      "EstoquePaginaDto": {
+        "type": "object",
+        "properties": {
+          "total": {
+            "type": "integer"
+          },
+          "pagina": {
+            "type": "integer"
+          },
+          "tamanho": {
+            "type": "integer"
+          },
+          "itens": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EstoqueResponseDto"
+            }
+          }
+        },
+        "required": [
+          "total",
+          "pagina",
+          "tamanho",
+          "itens"
+        ]
+      },
+      "UpdateEstoqueDto": {
+        "type": "object",
+        "properties": {
+          "nome": {
+            "type": "string",
+            "maxLength": 120
+          },
+          "localizacao": {
+            "type": "string",
+            "maxLength": 200
+          },
+          "alturaCm": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 2147483647
+          },
+          "seguro": {
+            "type": "boolean"
+          }
+        }
+      },
+      "CreateProdutoDto": {
+        "type": "object",
+        "properties": {
+          "nome": {
+            "type": "string",
+            "maxLength": 120
+          },
+          "categoria": {
+            "type": "string",
+            "maxLength": 80
+          },
+          "estoqueId": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 2147483647
+          },
+          "prioritario": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "nome",
+          "categoria",
+          "estoqueId"
+        ]
+      },
+      "ProdutoResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "nome": {
+            "type": "string"
+          },
+          "categoria": {
+            "type": "string"
+          },
+          "estoqueId": {
+            "type": "integer"
+          },
+          "quantidade": {
+            "type": "integer"
+          },
+          "prioritario": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "nome",
+          "categoria",
+          "estoqueId",
+          "quantidade",
+          "prioritario"
+        ]
+      },
+      "EstoqueProdutoDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "nome": {
+            "type": "string"
+          },
+          "seguro": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "nome",
+          "seguro"
+        ]
+      },
+      "CategoriaProdutoDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "publicId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "nome": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "publicId",
+          "nome"
+        ]
+      },
+      "ProdutoComRelacoesDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "nome": {
+            "type": "string"
+          },
+          "categoria": {
+            "type": "string"
+          },
+          "estoqueId": {
+            "type": "integer"
+          },
+          "quantidade": {
+            "type": "integer"
+          },
+          "prioritario": {
+            "type": "boolean"
+          },
+          "estoque": {
+            "$ref": "#/components/schemas/EstoqueProdutoDto"
+          },
+          "categorias": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CategoriaProdutoDto"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "nome",
+          "categoria",
+          "estoqueId",
+          "quantidade",
+          "prioritario",
+          "estoque",
+          "categorias"
+        ]
+      },
+      "ProdutoPaginaDto": {
+        "type": "object",
+        "properties": {
+          "total": {
+            "type": "integer"
+          },
+          "pagina": {
+            "type": "integer"
+          },
+          "tamanho": {
+            "type": "integer"
+          },
+          "itens": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProdutoComRelacoesDto"
+            }
+          }
+        },
+        "required": [
+          "total",
+          "pagina",
+          "tamanho",
+          "itens"
+        ]
+      },
+      "UpdateProdutoDto": {
+        "type": "object",
+        "properties": {
+          "nome": {
+            "type": "string",
+            "maxLength": 120
+          },
+          "categoria": {
+            "type": "string",
+            "maxLength": 80
+          },
+          "estoqueId": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 2147483647
+          },
+          "prioritario": {
+            "type": "boolean"
+          }
+        }
+      },
+      "CreateMovimentacaoDto": {
+        "type": "object",
+        "properties": {
+          "produtoId": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 2147483647
+          },
+          "tipo": {
+            "type": "string",
+            "enum": [
+              "ENTRADA",
+              "SAIDA"
+            ]
+          },
+          "quantidade": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 2147483647
+          }
+        },
+        "required": [
+          "produtoId",
+          "tipo",
+          "quantidade"
+        ]
+      },
+      "MovimentacaoResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "produtoId": {
+            "type": "integer"
+          },
+          "tipo": {
+            "type": "string",
+            "enum": [
+              "ENTRADA",
+              "SAIDA"
+            ]
+          },
+          "quantidade": {
+            "type": "integer"
+          },
+          "criadaEm": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "produtoId",
+          "tipo",
+          "quantidade",
+          "criadaEm"
+        ]
+      },
+      "CreateAlertaDto": {
+        "type": "object",
+        "properties": {
+          "estoqueId": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 2147483647
+          },
+          "titulo": {
+            "type": "string",
+            "maxLength": 160
+          },
+          "nivel": {
+            "type": "string",
+            "enum": [
+              "BAIXO",
+              "MEDIO",
+              "ALTO"
+            ]
+          },
+          "descricao": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "ativo": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "estoqueId",
+          "titulo",
+          "nivel",
+          "descricao"
+        ]
+      },
+      "AlertaResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "estoqueId": {
+            "type": "integer"
+          },
+          "titulo": {
+            "type": "string"
+          },
+          "nivel": {
+            "type": "string",
+            "enum": [
+              "BAIXO",
+              "MEDIO",
+              "ALTO"
+            ]
+          },
+          "descricao": {
+            "type": "string"
+          },
+          "ativo": {
+            "type": "boolean"
+          },
+          "criadoEm": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "origem": {
+            "type": "string",
+            "enum": [
+              "MANUAL"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "estoqueId",
+          "titulo",
+          "nivel",
+          "descricao",
+          "ativo",
+          "criadoEm",
+          "origem"
+        ]
+      },
+      "ProdutosEmRiscoResponseDto": {
+        "type": "object",
+        "properties": {
+          "alertaId": {
+            "type": "integer"
+          },
+          "estoqueId": {
+            "type": "integer"
+          },
+          "criterioAplicado": {
+            "type": "string"
+          },
+          "produtos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProdutoResponseDto"
+            }
+          }
+        },
+        "required": [
+          "alertaId",
+          "estoqueId",
+          "criterioAplicado",
+          "produtos"
+        ]
+      },
+      "UpdateAlertaDto": {
+        "type": "object",
+        "properties": {
+          "estoqueId": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 2147483647
+          },
+          "titulo": {
+            "type": "string",
+            "maxLength": 160
+          },
+          "nivel": {
+            "type": "string",
+            "enum": [
+              "BAIXO",
+              "MEDIO",
+              "ALTO"
+            ]
+          },
+          "descricao": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "ativo": {
+            "type": "boolean"
+          }
+        }
+      }
+    }
+  }
+}

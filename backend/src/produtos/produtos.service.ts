@@ -9,6 +9,8 @@ import { DataSource } from 'typeorm';
 import { databaseError } from '../common/database-error.js';
 import { Estoque } from '../estoques/entities/estoque.entity.js';
 import { CreateProdutoDto } from './dto/create-produto.dto.js';
+import { ProdutoComRelacoesDto } from './dto/produto-pagina.dto.js';
+import type { ProdutoPaginaDto } from './dto/produto-pagina.dto.js';
 import { ProdutoResponseDto } from './dto/produto-response.dto.js';
 import { QueryProdutoDto } from './dto/query-produto.dto.js';
 import { UpdateProdutoDto } from './dto/update-produto.dto.js';
@@ -49,9 +51,8 @@ export class ProdutosService {
     }
   }
 
-  async findAll(query: QueryProdutoDto) {
-    const pagina = query.pagina ?? 1;
-    const tamanho = query.tamanho ?? 20;
+  async findAll(query: QueryProdutoDto): Promise<ProdutoPaginaDto> {
+    const { pagina, tamanho } = query;
     const [rows, total] = await this.db.getRepository(Produto).findAndCount({
       where: {
         ...(query.estoqueId !== undefined ? { estoqueId: query.estoqueId } : {}),
@@ -64,12 +65,7 @@ export class ProdutosService {
       take: tamanho,
     });
     return {
-      itens: rows.map((p) => ({
-        id: p.id, nome: p.nome, categoria: p.categoria,
-        estoqueId: p.estoqueId, quantidade: p.quantidade, prioritario: p.prioritario,
-        estoque: { id: p.estoque.id, nome: p.estoque.nome, seguro: p.estoque.seguro },
-        categorias: p.categorias.map((c) => ({ id: c.id, publicId: c.publicId, nome: c.nome })),
-      })),
+      itens: rows.map((produto) => ProdutoComRelacoesDto.from(produto)),
       total, pagina, tamanho,
     };
   }
@@ -135,9 +131,9 @@ export class ProdutosService {
     }
   }
 
-  async remove(id: number) {
+  async remove(id: number): Promise<void> {
     try {
-      return await this.db.transaction(async (manager) => {
+      await this.db.transaction(async (manager) => {
         const repo = manager.getRepository(Produto);
 
         const produto = await repo.findOne({
@@ -157,7 +153,6 @@ export class ProdutosService {
 
         await repo.delete(id);
 
-        return ProdutoResponseDto.from(produto);
       });
     } catch (error) {
       databaseError(error);

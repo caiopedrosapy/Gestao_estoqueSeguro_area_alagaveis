@@ -35,6 +35,11 @@ test('fluxo integrado das quatro entidades', async (t) => {
       };
       if (body !== undefined) options.body = JSON.stringify(body);
       const response = await fetch(base + path, options);
+      if (status === 204) {
+        assert.equal(response.status, 204);
+        assert.equal(await response.text(), '');
+        return;
+      }
       const data = await response.json();
       assert.equal(response.status, status, JSON.stringify(data));
       return data;
@@ -80,7 +85,7 @@ test('fluxo integrado das quatro entidades', async (t) => {
         },
         201,
       );
-      await call('DELETE', `/estoques/${vazio.id}`);
+      await call('DELETE', `/estoques/${vazio.id}`, undefined, 204);
       await call('GET', `/estoques/${vazio.id}`, undefined, 404);
     });
 
@@ -112,7 +117,7 @@ test('fluxo integrado das quatro entidades', async (t) => {
         },
         201,
       );
-      await call('DELETE', `/produtos/${descartavel.id}`);
+      await call('DELETE', `/produtos/${descartavel.id}`, undefined, 204);
       await call('GET', `/produtos/${descartavel.id}`, undefined, 404);
     });
 
@@ -261,6 +266,12 @@ test('fluxo integrado das quatro entidades', async (t) => {
       );
       assert.ok(rows.itens.some((p) => p.id === produto.id));
       assert.ok(rows.itens.every((p) => p.estoqueId === local.id && p.prioritario));
+      const locaisPaginados = await call('GET', '/estoques?pagina=1&tamanho=1');
+      assert.equal(locaisPaginados.itens.length, 1);
+      assert.ok(locaisPaginados.total >= 2);
+      for (const recurso of ['produtos', 'estoques']) {
+        await call('GET', '/' + recurso + '?tamanho=101', undefined, 400);
+      }
       await call('GET', '/produtos?prioritario=talvez', undefined, 400);
       await call('GET', '/movimentacoes?produtoId=abc', undefined, 400);
     });
@@ -367,7 +378,7 @@ test('fluxo integrado das quatro entidades', async (t) => {
         await call('PATCH', `/alertas/${alerta.id}`, { nivel: 'ALTO' });
         await call('PATCH', `/estoques/${local.id}`, { seguro: true });
         assert.deepEqual((await call('GET', path)).produtos, []);
-        await call('DELETE', `/alertas/${alerta.id}`);
+        await call('DELETE', `/alertas/${alerta.id}`, undefined, 204);
         await call('GET', `/alertas/${alerta.id}`, undefined, 404);
       },
     );
