@@ -134,23 +134,11 @@ Os índices existentes `idx_produtos_estoque`, `idx_movimentacoes_produto` e `id
 
 ## 7 Verificação da Atividade 2
 
-As execuções realizadas estão registradas no
-[relatório de verificação](verificacao-entrega.md).
+Em um PostgreSQL temporário, aplicamos as três migrações em banco vazio. A última migração foi revertida e reaplicada. Também ensaiamos a atualização de um banco na versão inicial com um produto já cadastrado. O texto antigo, o saldo e as duas movimentações foram preservados, e o produto recebeu o vínculo de categoria.
 
-| Verificação | Resultado observado |
-| --- | --- |
-| Migração | Categorias1794000000000 aplicada com sucesso e COMMIT |
-| Seed | Criou 30 produtos DEMO, dois locais, categorias, vínculos, movimentos e alerta |
-| Listagem paginada | Página com tamanho 5 retornou 5 produtos; tamanho 20 retornou 20; total de 32 produtos |
-| Quantidade de consultas | Ambas as páginas executaram 3 SELECTs |
-| Restrição no banco | Exclusão de local vinculado recusada com código 23001 |
-| Resposta da API | A mesma exclusão retornou HTTP 409 |
-| Testes E2E | 11 testes aprovados, zero falhas e zero cancelamentos |
+O comando migration:check passou após o alinhamento das entidades com as chaves estrangeiras, índices e CHECKs existentes. Os resultados e o roteiro estão em [ensaio-migracoes.md](ensaio-migracoes.md).
 
-Ainda faltam evidências específicas de aplicação em banco vazio,
-reversão e reaplicação, comparação dos dados antes/depois
-e execução de migration:check. Esses itens não são apresentados
-como verificações concluídas.
+O seed criou os registros DEMO. A [verificação da entrega](verificacao-entrega.md) registra os três SELECTs por página de 5 e de 20 produtos, o SQL capturado e a tentativa de exclusão bloqueada com HTTP 409.
 
 ## 8 Referências
 
