@@ -2,10 +2,12 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { databaseError } from '../common/database-error.js';
+import type { PaginacaoDto } from '../common/paginacao.dto.js';
 import { Estoque } from './entities/estoque.entity.js';
 import { CreateEstoqueDto } from './dto/create-estoque.dto.js';
 import { UpdateEstoqueDto } from './dto/update-estoque.dto.js';
 import { EstoqueResponseDto } from './dto/estoque-response.dto.js';
+import type { EstoquePaginaDto } from './dto/estoque-pagina.dto.js';
 
 @Injectable()
 export class EstoquesService {
@@ -26,9 +28,13 @@ export class EstoquesService {
     return EstoqueResponseDto.from(estoque);
   }
 
-  async findAll() {
-    const rows = await this.repo.find({ order: { id: 'ASC' } });
-    return rows.map((e) => EstoqueResponseDto.from(e));
+  async findAll({ pagina, tamanho }: PaginacaoDto): Promise<EstoquePaginaDto> {
+    const [rows, total] = await this.repo.findAndCount({
+      order: { id: 'ASC' },
+      skip: (pagina - 1) * tamanho,
+      take: tamanho,
+    });
+    return { itens: rows.map((estoque) => EstoqueResponseDto.from(estoque)), total, pagina, tamanho };
   }
 
   async findOne(id: number) {
@@ -45,13 +51,12 @@ export class EstoquesService {
     return this.findOne(id);
   }
 
-  async remove(id: number) {
-    const estoque = await this.findOne(id);
+  async remove(id: number): Promise<void> {
     try {
-      await this.repo.delete(id);
+      const resultado = await this.repo.delete(id);
+      if (!resultado.affected) throw new NotFoundException('Estoque não encontrado.');
     } catch (error) {
       databaseError(error);
     }
-    return estoque;
   }
 }

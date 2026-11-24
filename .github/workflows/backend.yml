@@ -1,0 +1,45 @@
+name: Validar backend
+
+on: [push, pull_request]
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    services:
+      postgres:
+        image: postgres:18
+        env:
+          POSTGRES_USER: estoque
+          POSTGRES_PASSWORD: ci-local
+          POSTGRES_DB: estoque_ci
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U estoque -d estoque_ci"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      DATABASE_URL: postgresql://estoque:ci-local@localhost:5432/estoque_ci
+      TEST_DATABASE_URL: postgresql://estoque:ci-local@localhost:5432/estoque_teste
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: backend/package-lock.json
+      - name: Criar banco exclusivo dos testes
+        run: docker exec ${{ job.services.postgres.id }} createdb -U estoque estoque_teste
+      - run: npm ci
+      - run: npm run migration:run
+      - run: npm run migration:check
+      - run: npm run lint
+      - run: npm test
+      - run: npm run test:e2e
+      - run: npm run openapi:generate
+      - name: Conferir o contrato versionado
+        run: git diff --exit-code -- openapi.json

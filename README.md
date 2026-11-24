@@ -82,3 +82,12 @@ A listagem GET /produtos?pagina=1&tamanho=5 devolve itens, total, pagina e taman
 Escopo implementado: produtos, locais, movimentacoes, alertas manuais e classificacoes N-N demonstradas por migracao e seed. Autenticacao, integracao meteorologica externa e CRUD completo de categorias sao evolucoes futuras. A lista de funcionalidades proposta no inicio deste README nao significa que esses recursos futuros ja estao implementados.
 
 O modelo fica em [docs/modelo-de-dados.md](docs/modelo-de-dados.md). A verificacao executada e registrada por verify:entrega em docs/verificacao-entrega.md.
+
+## Contrato da API
+
+Com a API em execução, abra http://localhost:3000/api/docs. O contrato versionado fica em [backend/openapi.json](backend/openapi.json). Depois de mudar uma rota ou DTO, rode npm run openapi:generate dentro de backend.
+
+As listagens de produtos e estoques retornam itens, total, pagina e tamanho. O parâmetro tamanho aceita de 1 a 100. A exclusão bem-sucedida de produto, estoque ou alerta retorna 204 com corpo vazio. Vínculos que impedem uma exclusão retornam 409.
+
+As movimentações preservam o histórico. A API permite registrar, listar e detalhar. O fluxo está em [docs/TESTES.md](docs/TESTES.md).
+O teste das migrações em banco vazio e com dados anteriores está em [docs/ensaio-migracoes.md](docs/ensaio-migracoes.md).

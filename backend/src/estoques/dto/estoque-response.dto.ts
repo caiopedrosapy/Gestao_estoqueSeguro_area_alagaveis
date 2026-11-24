@@ -1,10 +1,16 @@
+import { ApiProperty } from '@nestjs/swagger';
 import type { Estoque } from '../entities/estoque.entity.js';
 
 export class EstoqueResponseDto {
+  @ApiProperty({ type: 'integer' })
   id!: number;
+  @ApiProperty()
   nome!: string;
+  @ApiProperty()
   localizacao!: string;
+  @ApiProperty({ type: 'integer' })
   alturaCm!: number;
+  @ApiProperty()
   seguro!: boolean;
 
   static from(e: Estoque): EstoqueResponseDto {

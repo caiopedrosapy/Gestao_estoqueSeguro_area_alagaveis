@@ -70,10 +70,9 @@ export class AlertasService {
     }
   }
 
-  async remove(id: number) {
-    const a = await this.findOne(id);
-    await this.db.getRepository(Alerta).delete(id);
-    return a;
+  async remove(id: number): Promise<void> {
+    const result = await this.db.getRepository(Alerta).delete(id);
+    if (!result.affected) throw new NotFoundException('Alerta não encontrado.');
   }
 
   async produtosEmRisco(id: number): Promise<ProdutosEmRiscoResponseDto> {
