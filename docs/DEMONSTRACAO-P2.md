@@ -19,11 +19,11 @@
 
 | Nº | Operação realizada | Resultado esperado | Resultado obtido |
 |---|---|---|---|
-| 1 | Cadastro de local vulnerável | Local cadastrado | HTTP 200 |
-| 2 | Cadastro de produto prioritário | Produto cadastrado | HTTP 200 |
+| 1 | Cadastro de local vulnerável | Local cadastrado | HTTP 201 |
+| 2 | Cadastro de produto prioritário | Produto cadastrado | HTTP 201 |
 | 3 | Entrada de 10 unidades | Aumentar o estoque | Saldo atualizado |
 | 4 | Saída de 3 unidades | Diminuir o estoque | Saldo final de 7 |
-| 5 | Criação de alerta manual | Alerta de nível alto | HTTP 200 |
+| 5 | Criação de alerta manual | Alerta de nível alto | HTTP 201 |
 | 6 | Consulta de produtos em risco | Identificar produto em risco | Produto encontrado |
 | 7 | Saída com quantidade zero | Rejeitar movimentação | HTTP 400 |
 | 8 | Nova consulta do produto | Manter saldo anterior | Saldo permaneceu em 7 |
